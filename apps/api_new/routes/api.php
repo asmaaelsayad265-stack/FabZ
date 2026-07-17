@@ -20,13 +20,13 @@ Route::prefix('v1')->group(function () {
     // -------------------------
     // Courses (protected)
     // -------------------------
-    Route::middleware(['auth:sanctum', 'ensure.role:super_admin', 'ensure.role:admin', 'ensure.role:instructor'])
+    Route::middleware(['auth:sanctum', 'ensure.role:super_admin,admin,instructor'])
         ->group(function () {
             Route::apiResource('/courses', \App\Http\Controllers\Api\V1\CourseController::class);
             Route::post('/courses/{course}/search', [\App\Http\Controllers\Api\V1\CourseController::class, 'search']);
         });
 
-    Route::middleware(['auth:sanctum', 'ensure.role:super_admin', 'ensure.role:admin', 'ensure.role:instructor', 'ensure.role:student'])
+    Route::middleware(['auth:sanctum', 'ensure.role:instructor,admin,super_admin,student'])
         ->group(function () {
             Route::get('/courses', [\App\Http\Controllers\Api\V1\CourseController::class, 'index']);
             Route::get('/courses/{course}', [\App\Http\Controllers\Api\V1\CourseController::class, 'show']);

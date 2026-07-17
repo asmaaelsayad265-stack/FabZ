@@ -1,0 +1,89 @@
+
+   FAIL  Tests\Feature\CourseFeatureTest
+  ✓ guest cannot access courses                                                                           0.80s  
+  ⨯ instructor can list courses with pagination                                                           0.23s  
+  ⨯ instructor can filter courses by category                                                             0.07s  
+  ⨯ instructor can search courses                                                                         0.06s  
+  ⨯ authorized can create update show and delete course                                                   0.05s  
+  ✓ guest cannot create course                                                                            0.04s  
+  ⨯ validation missing required fields                                                                    0.05s  
+  ─────────────────────────────────────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\CourseFeatureTest > instructor can list courses with pagination                         
+  Failed asserting that an array has the key 'data'.
+
+  at tests\Feature\CourseFeatureTest.php:43
+     39▕ 
+     40▕         $this->actingAs($user, 'sanctum')
+     41▕             ->getJson('/api/v1/courses?per_page=2')
+     42▕             ->assertOk()
+  ➜  43▕             ->assertJsonStructure([
+     44▕                 'data' => [
+     45▕                     'data',
+     46▕                     'current_page',
+     47▕                     'per_page',
+
+  ─────────────────────────────────────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\CourseFeatureTest > instructor can filter courses by category          ErrorException   
+  Undefined array key "data"
+
+  at tests\Feature\CourseFeatureTest.php:68
+     64▕             ->getJson('/api/v1/courses?category_id=' . $category1->id)
+     65▕             ->assertOk()
+     66▕             ->json();
+     67▕ 
+  ➜  68▕         $this->assertNotEmpty($response['data']['data']);
+     69▕     }
+     70▕ 
+     71▕     public function test_instructor_can_search_courses(): void
+     72▕     {
+
+  ─────────────────────────────────────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\CourseFeatureTest > instructor can search courses                      ErrorException   
+  Undefined array key "data"
+
+  at tests\Feature\CourseFeatureTest.php:87
+     83▕             ->getJson('/api/v1/courses?q=' . urlencode('Laravel'))
+     84▕             ->assertOk()
+     85▕             ->json();
+     86▕ 
+  ➜  87▕         $ids = array_map(static fn ($item) => $item['id'], $response['data']['data']);
+     88▕         $this->assertContains($course->id, $ids);
+     89▕     }
+     90▕ 
+     91▕     public function test_authorized_can_create_update_show_and_delete_course(): void
+
+  ─────────────────────────────────────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\CourseFeatureTest > authorized can create update show and delete course                 
+  Expected response status code [201] but received 403.
+Failed asserting that 403 is identical to 201.
+
+  at tests\Feature\CourseFeatureTest.php:108
+    104▕         ];
+    105▕ 
+    106▕         $created = $this->actingAs($user, 'sanctum')
+    107▕             ->postJson('/api/v1/courses', $payload)
+  ➜ 108▕             ->assertCreated()
+    109▕             ->json('data');
+    110▕ 
+    111▕         $courseId = $created['id'];
+    112▕
+
+  ─────────────────────────────────────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\CourseFeatureTest > validation missing required fields                                  
+  Expected response status code [422] but received 403.
+Failed asserting that 403 is identical to 422.
+
+  at tests\Feature\CourseFeatureTest.php:157
+    153▕                 'category_id' => null,
+    154▕                 'title' => '',
+    155▕                 'slug' => '',
+    156▕             ])
+  ➜ 157▕             ->assertStatus(422);
+    158▕     }
+    159▕ }
+    160▕
+
+
+  Tests:    5 failed, 2 passed (9 assertions)
+  Duration: 1.89s
+

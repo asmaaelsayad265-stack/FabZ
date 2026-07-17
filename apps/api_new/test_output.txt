@@ -1,0 +1,103 @@
+
+   FAIL  Tests\Feature\CourseFeatureTest
+  ✓ guest cannot access courses                                                                           1.17s  
+  ⨯ instructor can list courses with pagination                                                           0.15s  
+  ⨯ instructor can filter courses by category                                                             0.08s  
+  ⨯ instructor can search courses                                                                         0.11s  
+  ⨯ authorized can create update show and delete course                                                   0.06s  
+  ✓ guest cannot create course                                                                            0.06s  
+  ⨯ validation missing required fields                                                                    0.08s  
+  ─────────────────────────────────────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\CourseFeatureTest > instructor can list courses with pagination      RoleDoesNotExist   
+  There is no role named `web` for guard `web`.
+
+  at vendor\spatie\laravel-permission\src\Exceptions\RoleDoesNotExist.php:11
+      7▕ class RoleDoesNotExist extends InvalidArgumentException
+      8▕ {
+      9▕     public static function named(string $roleName, ?string $guardName)
+     10▕     {
+  ➜  11▕         return new static(__('There is no role named `:role` for guard `:guard`.', [
+     12▕             'role' => $roleName,
+     13▕             'guard' => $guardName,
+     14▕         ]));
+     15▕     }
+
+  1   vendor\spatie\laravel-permission\src\Exceptions\RoleDoesNotExist.php:11
+  2   vendor\spatie\laravel-permission\src\Models\Role.php:113
+
+  ─────────────────────────────────────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\CourseFeatureTest > instructor can filter courses by category        RoleDoesNotExist   
+  There is no role named `web` for guard `web`.
+
+  at vendor\spatie\laravel-permission\src\Exceptions\RoleDoesNotExist.php:11
+      7▕ class RoleDoesNotExist extends InvalidArgumentException
+      8▕ {
+      9▕     public static function named(string $roleName, ?string $guardName)
+     10▕     {
+  ➜  11▕         return new static(__('There is no role named `:role` for guard `:guard`.', [
+     12▕             'role' => $roleName,
+     13▕             'guard' => $guardName,
+     14▕         ]));
+     15▕     }
+
+  1   vendor\spatie\laravel-permission\src\Exceptions\RoleDoesNotExist.php:11
+  2   vendor\spatie\laravel-permission\src\Models\Role.php:113
+
+  ─────────────────────────────────────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\CourseFeatureTest > instructor can search courses                    RoleDoesNotExist   
+  There is no role named `web` for guard `web`.
+
+  at vendor\spatie\laravel-permission\src\Exceptions\RoleDoesNotExist.php:11
+      7▕ class RoleDoesNotExist extends InvalidArgumentException
+      8▕ {
+      9▕     public static function named(string $roleName, ?string $guardName)
+     10▕     {
+  ➜  11▕         return new static(__('There is no role named `:role` for guard `:guard`.', [
+     12▕             'role' => $roleName,
+     13▕             'guard' => $guardName,
+     14▕         ]));
+     15▕     }
+
+  1   vendor\spatie\laravel-permission\src\Exceptions\RoleDoesNotExist.php:11
+  2   vendor\spatie\laravel-permission\src\Models\Role.php:113
+
+  ─────────────────────────────────────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\CourseFeatureTest > authorized can create update show and delete c…  RoleDoesNotExist   
+  There is no role named `web` for guard `web`.
+
+  at vendor\spatie\laravel-permission\src\Exceptions\RoleDoesNotExist.php:11
+      7▕ class RoleDoesNotExist extends InvalidArgumentException
+      8▕ {
+      9▕     public static function named(string $roleName, ?string $guardName)
+     10▕     {
+  ➜  11▕         return new static(__('There is no role named `:role` for guard `:guard`.', [
+     12▕             'role' => $roleName,
+     13▕             'guard' => $guardName,
+     14▕         ]));
+     15▕     }
+
+  1   vendor\spatie\laravel-permission\src\Exceptions\RoleDoesNotExist.php:11
+  2   vendor\spatie\laravel-permission\src\Models\Role.php:113
+
+  ─────────────────────────────────────────────────────────────────────────────────────────────────────────────  
+   FAILED  Tests\Feature\CourseFeatureTest > validation missing required fields               RoleDoesNotExist   
+  There is no role named `web` for guard `web`.
+
+  at vendor\spatie\laravel-permission\src\Exceptions\RoleDoesNotExist.php:11
+      7▕ class RoleDoesNotExist extends InvalidArgumentException
+      8▕ {
+      9▕     public static function named(string $roleName, ?string $guardName)
+     10▕     {
+  ➜  11▕         return new static(__('There is no role named `:role` for guard `:guard`.', [
+     12▕             'role' => $roleName,
+     13▕             'guard' => $guardName,
+     14▕         ]));
+     15▕     }
+
+  1   vendor\spatie\laravel-permission\src\Exceptions\RoleDoesNotExist.php:11
+  2   vendor\spatie\laravel-permission\src\Models\Role.php:113
+
+
+  Tests:    5 failed, 2 passed (2 assertions)
+  Duration: 2.33s
+

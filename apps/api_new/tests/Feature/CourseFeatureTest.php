@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Course;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Artisan;
 use Tests\TestCase;
 
 class CourseFeatureTest extends TestCase
@@ -14,8 +15,11 @@ class CourseFeatureTest extends TestCase
 
     private function authUser(string $role): User
     {
+        // Ensure the role exists with 'web' guard
+        \Spatie\Permission\Models\Role::findOrCreate($role, 'web');
+        
         $user = User::factory()->create();
-        $user->syncRoles([$role]);
+        $user->assignRole($role);
 
         return $user;
     }
