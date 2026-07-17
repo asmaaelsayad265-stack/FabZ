@@ -23,7 +23,16 @@ class EnsureRole
         }
 
         $roleList = array_values(array_filter(
-            array_map(static fn (string $role): string => trim($role), $roles),
+            array_map(
+                static fn (string $role): string => trim($role),
+                array_filter(
+                    array_merge(...array_map(
+                        static fn (string $roleGroup): array => explode(',', $roleGroup),
+                        $roles,
+                    )),
+                    static fn (string $role): bool => $role !== '',
+                )
+            ),
             static fn (string $role): bool => $role !== '',
         ));
         if (empty($roleList)) {

@@ -14,7 +14,7 @@ class CourseMediaController extends Controller
 {
     public function indexByCourse(Request $request, Course $course): JsonResponse
     {
-        $query = $course->media()->newQuery();
+        $query = $course->media();
 
         $type = $request->query('type');
         if (is_string($type) && $type !== '') {

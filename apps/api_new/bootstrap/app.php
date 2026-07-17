@@ -16,10 +16,6 @@ return Application::configure(basePath: dirname(__DIR__))
             'ensure.role' => \App\Http\Middleware\EnsureRole::class,
             'api.auth' => \App\Http\Middleware\ApiAuth::class,
         ]);
-        
-        $middleware->group('api', [
-            \App\Http\Middleware\ApiAuth::class,
-        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
