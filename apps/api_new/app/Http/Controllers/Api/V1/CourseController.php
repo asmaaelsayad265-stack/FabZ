@@ -8,6 +8,7 @@ use App\Http\Requests\Api\V1\CourseUpdateRequest;
 use App\Http\Resources\CourseResource;
 use App\Models\Course;
 use App\Services\CourseService;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -29,7 +30,7 @@ class CourseController extends Controller
 
         $paginator = $this->courses->list($filters, $perPage);
 
-        return CourseResource::collection($paginator);
+        return $this->paginatedResponse($paginator, $request);
     }
 
     public function store(CourseStoreRequest $request)
@@ -41,13 +42,13 @@ class CourseController extends Controller
         return (new CourseResource($course))->response()->setStatusCode(201);
     }
 
-    public function show(int $courseId)
+    public function show(Request $request, int $courseId)
     {
         $this->authorize('view', Course::class);
 
         $course = $this->courses->findOrFail($courseId);
 
-        return new CourseResource($course);
+        return response()->json((new CourseResource($course))->toArray($request));
     }
 
     public function update(CourseUpdateRequest $request, int $courseId)
@@ -79,7 +80,19 @@ class CourseController extends Controller
 
         $paginator = $this->courses->search($filters, $perPage);
 
-        return CourseResource::collection($paginator);
+        return $this->paginatedResponse($paginator, $request);
+    }
+
+    private function paginatedResponse(LengthAwarePaginator $paginator, Request $request)
+    {
+        return response()->json([
+            'data' => [
+                'data' => CourseResource::collection($paginator->items())->resolve($request),
+                'current_page' => $paginator->currentPage(),
+                'per_page' => $paginator->perPage(),
+                'total' => $paginator->total(),
+            ],
+        ]);
     }
 }
 

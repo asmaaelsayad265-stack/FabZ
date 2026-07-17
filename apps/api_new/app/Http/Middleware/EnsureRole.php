@@ -11,7 +11,7 @@ class EnsureRole
     /**
      * @param  array<string>  $roles
      */
-    public function handle(Request $request, Closure $next, string $roles = ''): Response
+    public function handle(Request $request, Closure $next, string ...$roles): Response
     {
         $user = $request->user();
         if (!$user) {
@@ -22,7 +22,10 @@ class EnsureRole
             return $next($request);
         }
 
-        $roleList = array_values(array_filter(explode(',', $roles), fn ($r) => !is_null($r) && $r !== ''));
+        $roleList = array_values(array_filter(
+            array_map(static fn (string $role): string => trim($role), $roles),
+            static fn (string $role): bool => $role !== '',
+        ));
         if (empty($roleList)) {
             return $next($request);
         }

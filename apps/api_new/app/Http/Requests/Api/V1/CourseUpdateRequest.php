@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Api\V1;
 
+use App\Models\Course;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -14,7 +15,8 @@ class CourseUpdateRequest extends FormRequest
 
     public function rules(): array
     {
-        $courseId = $this->route('course')?->id;
+        $course = $this->route('course');
+        $courseId = $course instanceof Course ? $course->id : $course;
 
         return [
             'category_id' => ['sometimes', 'required', 'integer', 'exists:categories,id'],
