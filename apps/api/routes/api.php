@@ -1,9 +1,8 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\CourseController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/health', function () {
-    return response()->json(['status' => 'ok']);
-});
+Route::get('/health', fn () => response()->json(['status' => 'ok']));
 
+Route::middleware('auth:sanctum')->apiResource('courses', CourseController::class);
